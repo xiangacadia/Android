@@ -31,7 +31,8 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
     // Location Manager
     private LocationManager locationManager;
 
-    private String provider;
+    // status of GPS
+    private Boolean isGPSEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +51,11 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
         // get location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        Location location = null;
+        // getting GPS status
+        isGPSEnabled = locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        if(provider != null){
-            location = locationManager.getLastKnownLocation(provider);
-        }
 
-        // Initialize the location fields
-        if (provider != null) {
-            System.out.println("Provider " + provider + " has been selected.");
-            onLocationChanged(location);
-        }
     }
 
     @Override
@@ -74,22 +67,27 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        // register this class as a listener for light sensor
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        // register this class as a listener for ambient temperature sensor
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        // register this class as a listener for step counter
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        // register this class as a listener for proximity
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
+        //check whether the sensors are avaliable
         List< Sensor > sl = sensorManager.getSensorList( Sensor.TYPE_LIGHT );
         if ( sl.size() == 0 ) {
             ((TextView) findViewById(R.id.textView4)).setText("light sensor NOT available!");
@@ -110,10 +108,31 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
             ((TextView) findViewById(R.id.textView7)).setText("proximity sensor NOT available!");
         }
 
-        if(provider != null)
-            locationManager.requestLocationUpdates(provider, 400, 1, this);
+        if(isGPSEnabled == Boolean.TRUE){
+            Log.e("Xiang","gps enabled");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
 
-        if(provider == null){
+            if (locationManager != null) {
+                Log.e("Xiang","location not null");
+
+
+
+                Location location = locationManager
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                if (location != null) {
+                    ((TextView) findViewById(R.id.textView8)).setText("Latitude: " + Double.toString(location.getLatitude()));
+                    ((TextView) findViewById(R.id.textView9)).setText("Longitude: " + Double.toString(location.getLongitude()));
+                }
+            }else{
+                Log.e("Xiang","location null");
+                ((TextView) findViewById(R.id.textView8)).setText("last location is null");
+            }
+        }else{
+            Log.e("Xiang","gps disabled");
+        }
+
+        if(isGPSEnabled == Boolean.FALSE){
             ((TextView) findViewById(R.id.textView8)).setText("Location NOT available");
             ((TextView) findViewById(R.id.textView9)).setText("Location NOT available");
         }
@@ -157,6 +176,7 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
     }
 
     @Override
+    //update values for the sensors
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             float[] values = event.values;
@@ -210,17 +230,26 @@ public class SimpleSensorActivity extends ActionBarActivity implements SensorEve
     }
 
     @Override
+    // update GPS value
     public void onLocationChanged(Location location) {
-        int lat = (int) (location.getLatitude());
-        int lng = (int) (location.getLongitude());
-        ((TextView) findViewById(R.id.textView8)).setText(String.valueOf(lat));
-        ((TextView) findViewById(R.id.textView9)).setText(String.valueOf(lng));
+        location = locationManager
+                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+        if (location != null) {
+            ((TextView) findViewById(R.id.textView8)).setText("Latitude: " + Double.toString(location.getLatitude()));
+            ((TextView) findViewById(R.id.textView9)).setText("Longitude: " + Double.toString(location.getLongitude()));
+            Log.e("Xiang", "location changed - location not null");
+            Log.e("Xiang", Double.toString(location.getLatitude()));
+            Log.e("Xiang", Double.toString(location.getLongitude()));
+
+        }else{
+            Log.e("Xiang", "location changed - location is null");
+        }
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
