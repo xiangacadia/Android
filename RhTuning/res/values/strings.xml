@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">二胡调音器</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="inside">内弦</string>
+    <string name="outside">外弦</string>
+    <string name="text_hint">正在努力为您测算,请拉外弦空弦</string>
+    <string name="text_std">外弦空弦的标准音高为442Hz</string>
+    <string name="text_1">接近或达到442Hz则调音成功</string>
+    <string name="text_2">注意:该定音器只能用来调节外弦!</string>
+
+</resources>

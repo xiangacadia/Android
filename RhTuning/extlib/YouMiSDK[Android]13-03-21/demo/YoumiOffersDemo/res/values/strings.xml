@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">有米积分墙v3.0示例程序</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="show_offers">积分墙</string>
+    <string name="award_5_points">奖励积分(+5)</string>
+    <string name="spend_10_points">消耗积分(-10)</string>
+    <string name="label_mypoints_activity">我的积分账户</string>
+    <string name="label_exit">关闭</string>
+
+</resources>

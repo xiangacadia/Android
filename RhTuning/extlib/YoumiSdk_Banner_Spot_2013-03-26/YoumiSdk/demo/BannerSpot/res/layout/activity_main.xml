@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+    <Button 
+        android:id="@+id/showSpot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="展示插屏广告"
+        android:layout_alignParentTop="true"
+        />
+    <Button 
+        android:id="@+id/updateApp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="检查应用更新"
+        android:layout_below="@+id/showSpot"/>
+
+    <LinearLayout 
+        android:id="@+id/adLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        ></LinearLayout>
+
+</RelativeLayout>

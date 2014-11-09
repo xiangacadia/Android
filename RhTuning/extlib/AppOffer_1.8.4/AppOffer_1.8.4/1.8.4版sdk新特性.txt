@@ -1,0 +1,15 @@
+1.8.4版SDK新特性:
+
+1、插屏广告增加嵌入式Layout接口
+	View popAdView = AppConnect.getInstance(context).getPopAdView(context);
+	View popAdView = AppConnect.getInstance(context).getPopAdView(context,width, height);
+
+2、插屏广告去掉3分钟内只能显示一次的限制，增加了插屏广告点击时可显示下载确认按钮的设置项
+
+3、Demo增加了基于插屏广告实现的“开屏广告”广告样例源码
+
+4、Demo增加了基于插屏广告实现的“退出插屏”广告样例源码
+
+5、Demo增加了基于自定义广告实现的“抽屉式广告墙”广告样例源码
+
+6、系统内核进行了优化，避免了多数安全软件误报风险的问题

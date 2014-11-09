@@ -1,0 +1,12 @@
+# view AndroidManifest.xml #generated:28
+-keep class net.youmi.android.YoumiActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:30
+-keep class net.youmi.android.YoumiReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:29
+-keep class net.youmi.android.YoumiService { <init>(...); }
+
+# view AndroidManifest.xml #generated:16
+-keep class net.youmi.sdkv4.sample.MainActivity { <init>(...); }
+
